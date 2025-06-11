@@ -1,0 +1,28 @@
+---
+---
+
+    <button id="showProyectos" class="w-[6vh] h-[6vh] absolute rounded-full top-[20vh] left-[4vh] bg-[#fb8500] hover:bg-[#FFB703] text-white">
+        L.P
+    </button>
+    <nav id="listProyectos" class="w-[35%] h-[73vh] bg-white absolute border border- [#023047] top-[19vh] rounded hidden">
+        <h3 id="hiddenProyectos" class="w-full min-h-[5vh] text-[1.15rem] grid place-items-center font-bold border rounded">
+            LISTA DE PROYECTOS
+        </h3>
+        <section id="listaDeProyectos" class="w-full h-auto bg-gray-100 border px-[2vh]">
+    <!-- ======= lista de proyectos ======== -->  
+        </section>
+    </nav>
+
+  <script is:inline>
+   const showBtn = document.getElementById('showProyectos');
+    const hideBtn = document.getElementById('hiddenProyectos');
+    const listProjects = document.getElementById('listProyectos');
+
+    showBtn.addEventListener('click', () => {
+        listProjects.classList.toggle('hidden');
+    });
+
+    hideBtn.addEventListener('click', () => {
+        listProjects.classList.toggle('hidden');
+    });
+  </script>

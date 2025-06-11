@@ -1,3 +1,7 @@
+---
+import './src/styles/global.css' 
+---
+
 <!doctype html>
 <html lang="en">
 	<head>
@@ -5,11 +9,12 @@
 		<meta name="viewport" content="width=device-width" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
+		<title>Gestor de Proyectos</title>
 	</head>
-	<body>
+	<body class="w-full h-screen p-[3vh] flex flex-col bg-[#8ECAE6] text-[#023047]">
 		<slot />
 	</body>
+	<script src="../scripts/index.js"></script>
 </html>
 
 <style>
