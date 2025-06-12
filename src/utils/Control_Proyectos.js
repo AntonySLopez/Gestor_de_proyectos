@@ -14,11 +14,10 @@ export const control = {
     },
 
     // ✅ cambiarEstadoTarea - probado
-    cambiarEstadoTarea(array, proyecto, tarea) {
-        const index = array.findIndex(obj => obj.nombre.toLowerCase() === proyecto.toLowerCase());
+    cambiarEstadoTarea(array, index, tarea) {
 
-        if (index !== -1) {
-            array[index].cambiarEstado(tarea);
+        if (index) {
+            return array[index].cambiarEstado(tarea);
         } else {
             console.log(`proyecto: ${proyecto} no encontrado`);
         }

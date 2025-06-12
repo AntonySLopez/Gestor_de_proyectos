@@ -42,14 +42,14 @@ import { generarProyectosYtareas } from './Proyectos.js';
             (`
                 <article class="w-full h-[6vh] bg-gray-200 flex hover:bg-[#FFB703] hover:font-semibold rounded">
                     <h4 class="w-[70%] h-full flex items-center px-1">${proyecto}</h4>
-                    <h4 class="w-[30%] h-full flex items-center px-1 justify-between">
-                        ${progreso}
-                        <span id="Estado" class="border border-[#023047] w-[5vh] h-[5vh] bg-[yellow] rounded-full cursor-pointer"></span>
+                    <h4 class="w-[30%] h-full flex items-center px-1">
+                        ${progreso} Completado
                     </h4>
                 </article>
             `
             )).join('');
         }
+//'✔️' : '❌'
 
 //<<============== funcion onclick para mostrar lista de tareas ============>>
 
@@ -59,16 +59,19 @@ import { generarProyectosYtareas } from './Proyectos.js';
             const index = elemento.dataset.index;
             const name = elemento.innerText;
             const allWorks = bd[index].tareas;
-
             const contenedor = document.getElementById("contenedor");
             const titulo = document.getElementById("nombreProyecto");
-            titulo.innerText = name; // aunque no hace nada útil, esto sí es válido
 
+            titulo.innerText = name;
             contenedor.innerHTML = allWorks.map(({ descripcion, completado }) => `
-                <article class="w-full h-[6vh] bg-gray-200 flex hover:bg-[#FFB703] hover:font-semibold rounded">
+                <article class="w-full h-[6vh] bg-gray-200 flex hover:bg-[#FFB703] hover:font-semibold rounded cursor-pointer" 
+                    data-descripcion="${descripcion}" 
+                    data-index="${index}" 
+                    onclick="cambioEstado(this)">
+                    
                     <h4 class="w-[70%] h-full flex items-center px-1">${descripcion}</h4>
                     <h4 class="w-[30%] h-full flex items-center px-1 justify-between">
-                        ${completado ? '✔️' : '❌'}
+                        ${completado ? 'Completo': 'En proceso' }
                         <span 
                             class="border border-[#023047] w-[5vh] h-[5vh] 
                             ${completado ? 'bg-[green]' : 'bg-[yellow]'} 
@@ -76,15 +79,34 @@ import { generarProyectosYtareas } from './Proyectos.js';
                         </span>
                     </h4>
                 </article>
-
             `).join('');
+
         }
 
-//<<============== * ============>>
+//<<============== funcion onclick para cambiar estado ============>>
 
-//<<============== * ============>>
+        window.cambioEstado = function cambioEstado(elemento, dataBase = 'dataBase') {
+            console.log(`pruba`);
+            
+            const bd = window[dataBase];
+            const tarea = elemento.dataset.descripcion;
+            const index = elemento.dataset.index;
 
-//<<============== * ============>>
+            const resultado = control.cambiarEstadoTarea(bd, index, tarea);
+
+            elemento.lastElementChild.innerHTML = `${resultado ? 'Completo': 'En proceso' }
+                        <span 
+                            class="border border-[#023047] w-[5vh] h-[5vh] 
+                            ${resultado ? 'bg-[green]' : 'bg-[yellow]'} 
+                            rounded-full cursor-pointer">
+                        </span>` ;
+        }
+
+//<<============== buscadores rapidos ============>>
+
+        
+
+//<<============== agregar Proyectos y agregar tareas. ============>>
  document.addEventListener("DOMContentLoaded", function () {
 
     generarProyectosYtareas(dataBase)

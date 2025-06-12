@@ -36,13 +36,13 @@ export const generador = {
             console.log(`Tarea: ${descripcion} agregada`);
             
         };
-//provado
+//provado  falta mejorar buscardor por findIndex
         cambiarEstado(tarea){
             const { find, index } = this.buscador(tarea)
             
             if(find){
                 this.tareas[index].completado= !this.tareas[index].completado;
-                console.log(`Estado de: ${tarea} actualizada`)
+                return this.tareas[index].completado;
             } else{
                 console.log(`${tarea} No encontrado`);
             }
