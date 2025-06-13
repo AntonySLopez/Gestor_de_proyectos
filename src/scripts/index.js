@@ -22,7 +22,8 @@ import { generarProyectosYtareas } from './Proyectos.js';
         
         //mostramos proyectos en contenedor
         listaDeProyectos.innerHTML = allproyectos.map( ({nombre, index}) => 
-            `<li class="font-semibold my-[2vh] text-[1.1rem] hover:text-[#fb8500] hover:underline cursor-pointer" 
+            `<li class="font-semibold my-[2vh] text-[1.1rem] hover:text-[#fb8500] hover:underline cursor-pointer"
+                data-proyecto="${nombre}"
                 data-index="${index}" 
                 onclick="showTareas(this)">
                 ${nombre}
@@ -38,16 +39,17 @@ import { generarProyectosYtareas } from './Proyectos.js';
             console.log(estadoDeProyectos);
         const contenedor = document.getElementById("contenedor");
 
-        contenedor.innerHTML = estadoDeProyectos.map(({ proyecto, progreso }) => 
+        contenedor.innerHTML = estadoDeProyectos.map(({ proyecto, progreso, index }) => 
             (`
-                <article class="w-full h-[6vh] bg-gray-200 flex hover:bg-[#FFB703] hover:font-semibold rounded">
-                    <h4 class="w-[70%] h-full flex items-center px-1">${proyecto}</h4>
+                <article class="w-full h-[6vh] bg-gray-200 flex hover:bg-[#FFB703] hover:font-semibold rounded" data-index="${index}" data-proyecto="${proyecto}" onclick="showTareas(this)">
+                    <h4 class="w-[70%] h-full flex items-center px-1">
+                        ${proyecto}
+                    </h4>
                     <h4 class="w-[30%] h-full flex items-center px-1">
                         ${progreso} Completado
                     </h4>
                 </article>
-            `
-            )).join('');
+            `)).join('');
         }
 //'✔️' : '❌'
 
@@ -57,13 +59,14 @@ import { generarProyectosYtareas } from './Proyectos.js';
             const bd = window[dataBase];
 
             const index = elemento.dataset.index;
-            const name = elemento.innerText;
+            const name = elemento.dataset.proyecto;
             const allWorks = bd[index].tareas;
             const contenedor = document.getElementById("contenedor");
             const titulo = document.getElementById("nombreProyecto");
 
             titulo.innerText = name;
-            contenedor.innerHTML = allWorks.map(({ descripcion, completado }) => `
+            contenedor.innerHTML = allWorks.map(({ descripcion, completado }) => 
+            `
                 <article class="w-full h-[6vh] bg-gray-200 flex hover:bg-[#FFB703] hover:font-semibold rounded cursor-pointer" 
                     data-descripcion="${descripcion}" 
                     data-index="${index}" 
@@ -115,3 +118,10 @@ import { generarProyectosYtareas } from './Proyectos.js';
     resumenProyectos(dataBase);
 
   });
+
+//<<============== funcion Home ============>>
+
+export function home(){
+    mostrarListaDeProyectos(dataBase);
+    resumenProyectos(dataBase);
+  }

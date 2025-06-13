@@ -34,7 +34,11 @@ export const control = {
 
         if (array[index].tareas.length === 0) {
 
-            return { proyecto: proyecto, progreso: "No tiene tareas", index:index };
+            return { 
+                proyecto: proyecto, 
+                progreso: "No tiene tareas", 
+                index:index
+            };
         }
 
         const total = array[index].tareas.length;
